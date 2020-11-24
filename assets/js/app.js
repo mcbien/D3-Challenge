@@ -26,3 +26,19 @@ var svg = d3
 // append a group to the SVG area and translate it to the right and downbased on margins
 var chartGroup = svg.append("g")
     .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+
+// Load health data in from csv
+d3.csv("data.csv").then(function (data) {
+
+    // Prnt the data
+    console.log(data);
+
+
+
+
+
+
+
+
+
+})
