@@ -6,11 +6,11 @@ var svgHeight = 750;
 
 // Define the chart's margins
 var chartMargin = {
-    top: 20,
-    right: 20,
-    bottom: 20,
-    left: 20
-}
+    top: 100,
+    right: 100,
+    bottom: 100,
+    left: 100
+};
 
 // Define chart area dimensions
 var chartWidth = svgWidth - chartMargin.left - chartMargin.right  // 1000 - 20 -20 = 960
@@ -25,4 +25,4 @@ var svg = d3
 
 // append a group to the SVG area and translate it to the right and downbased on margins
 var chartGroup = svg.append("g")
-atttr("transfrom", `translate(${chartMargin.left}, ${chartMargin.top}})`);
+    .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
