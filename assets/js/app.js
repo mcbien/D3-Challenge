@@ -28,10 +28,44 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
 // Load health data in from csv
-d3.csv("data.csv").then(function (data) {
+d3.csv("data.csv").then(function (healthData) {
 
-    // Prnt the data
-    console.log(data);
+    // Print health data
+    console.log(healthData)
+
+    // Cast data fields as integers
+    healthData.forEach(function (data) {
+        data.smokes = +data.smokes
+        data.income = +data.income
+        data.obesity = +data.obesity
+        data.age = +data.age;
+    });
+
+    //Review data post-casting
+    console.log(healthData[0])
+
+    // Configure x linear scale
+    var xLinearScale = d3.scaleLinear()
+        .domain([0, d3.max(healthData, data => data.smokes)])
+        .range([0, chartWidth]);
+
+    // Configure y linear scale
+    var yLinearScale = d3.scaleLinear()
+        .domain([0, d3.max(healthData, data => data.income)])
+        .range([chartHeight, 0]);
+
+    // Create bottomAxis and leftAxis variables used to create scales
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var lefAxis = d3.axisLeft(yLinearScale);
+
+
+
+
+
+
+
+
+});
 
 
 
@@ -41,4 +75,3 @@ d3.csv("data.csv").then(function (data) {
 
 
 
-})
