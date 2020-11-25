@@ -8,13 +8,13 @@ var svgHeight = 750;
 var chartMargin = {
     top: 75,
     right: 200,
-    bottom: 200,
+    bottom: 150,
     left: 350
 };
 
 // Define chart area dimensions
-var chartWidth = svgWidth - chartMargin.left - chartMargin.right
-var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom
+var chartWidth = svgWidth - chartMargin.left - chartMargin.right // 1500 - 350 - 200 = 1450
+var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom // 750 - 75 - 75 = 600
 
 // Select body and append the SVG area to it and set the dimensions
 var svg = d3
@@ -59,11 +59,12 @@ d3.csv("data.csv").then(function (healthData) {
     var leftAxis = d3.axisLeft(yLinearScale);
 
     // Append an SVG chartGroup append circles for each datapoint
-    chartGroup.append("g")
+    var chartCircles = chartGroup.append("g")
         .selectAll("dot")   // There are none
         .data(healthData)   // Bind data
-        .enter()            // Change focus to new elements only
-        .append("circle")
+        .enter();
+    // Change focus to new elements only
+    chartCircles.append("circle")
         .attr("cx", function (data) {
             //console.log(data.smokes)
             return xLinearScale(data.smokes);
@@ -77,20 +78,29 @@ d3.csv("data.csv").then(function (healthData) {
         .classed("circles", true)
 
     // Append text
-    charGroup.append("text")
+    chartCircles.append("text")
         .text(function (data) {
             return data.abbr
         })
+        .attr("dx", function (data) {
+            //console.log(data.smokes)
+            return xLinearScale(data.smokes - .32);
+        })
+        .attr("dy", function (data) {
+            //console.log(data.income)
+            return yLinearScale(data.income - 600);
+        })
+        .classed("stateAbbr", true)
 
-
-
-
-
-
-
-
-
-
+    // //Append tooltip
+    // var toolTip = d3.tip()
+    //     .attr("class", "tooltip")
+    //     .offset([80, -60])
+    //     .html(function (data) {
+    //         return (`Smokes: ${data.smokes}<br>State: ${data.state}<br>Income: ${data.income}`);
+    //     })
+    // //Add tootip to chart
+    // chartGroup.call(toolTip);
 
     // Append an SVG group and for bottom axis
     chartGroup.append("g")
@@ -103,7 +113,21 @@ d3.csv("data.csv").then(function (healthData) {
         .attr("transform", `translate(0, ${chartHeight})`)
         .call(bottomAxis);
 
+    // Create axis lables
+    // x axis
+    chartGroup.append("text")
+        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + chartMargin.top - 30})`)
+        .attr("class", "axisText")
+        .text("Smoker Percentage (%)");
 
+    // y axis
+    chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - chartMargin.left + 275)
+        .attr("x", 0 - (chartHeight / 2))
+        .attr("dy", "1em")
+        .attr("class", "axisText")
+        .text("Income ($)");
 
 
 
