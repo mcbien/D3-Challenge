@@ -1,15 +1,15 @@
 // @TODO: YOUR CODE HERE!
 
 // Set SVG Dimensions
-var svgWidth = 1500;
+var svgWidth = 1000;
 var svgHeight = 750;
 
 // Define the chart's margins
 var chartMargin = {
     top: 75,
-    right: 200,
+    right: 20,
     bottom: 150,
-    left: 350
+    left: 20
 };
 
 // Define chart area dimensions
@@ -18,7 +18,7 @@ var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom // 750 - 75 -
 
 // Select body and append the SVG area to it and set the dimensions
 var svg = d3
-    .select("body")
+    .select("#scatter")
     .append("svg")
     .attr("height", svgHeight)
     .attr("width", svgWidth);
@@ -27,11 +27,21 @@ var svg = d3
 var chartGroup = svg.append("g")
     .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
+function example(dataplaceholder) {
+    console.log('example function', dataplaceholder)
+}
+
+
+
+
 // Load health data in from csv
 d3.csv("data.csv").then(function (healthData) {
 
     // Print health data
-    console.log(healthData)
+    // console.log(healthData)
+
+    console.log("data from called function")
+    example(healthData)
 
     // Cast data fields as integers
     healthData.forEach(function (data) {
@@ -123,7 +133,7 @@ d3.csv("data.csv").then(function (healthData) {
     // y axis
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - chartMargin.left + 275)
+        .attr("y", 0 - chartMargin.left)
         .attr("x", 0 - (chartHeight / 2))
         .attr("dy", "1em")
         .attr("class", "axisText")
