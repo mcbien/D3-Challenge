@@ -93,6 +93,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     return circlesGroup;
 }
 
+
 // Retrieve data from the CSV file and execute everything below
 d3.csv("data.csv").then(function (healthData) {
 
