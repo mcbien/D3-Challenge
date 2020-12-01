@@ -6,10 +6,10 @@ var svgHeight = 750;
 
 // Define the chart's margins
 var chartMargin = {
-    top: 75,
-    right: 20,
-    bottom: 150,
-    left: 20
+    top: 40,
+    right: 40,
+    bottom: 75,
+    left: 75
 };
 
 // Define chart area dimensions
@@ -126,14 +126,14 @@ d3.csv("data.csv").then(function (healthData) {
     // Create axis lables
     // x axis
     chartGroup.append("text")
-        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + chartMargin.top - 30})`)
+        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + chartMargin.top})`)
         .attr("class", "axisText")
         .text("Smoker Percentage (%)");
 
     // y axis
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - chartMargin.left)
+        .attr("y", 0 - chartMargin.left - 5)
         .attr("x", 0 - (chartHeight / 2))
         .attr("dy", "1em")
         .attr("class", "axisText")
